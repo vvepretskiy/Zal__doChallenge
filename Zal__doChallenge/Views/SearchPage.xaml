@@ -1,0 +1,53 @@
+﻿<Page
+    x:Class="Zal__doChallenge.Views.SearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:converters="using:Zal__doChallenge.Converters"
+    mc:Ignorable="d">
+
+	<Page.DataContext>
+		<Binding Path="SearchViewModel" Source="{StaticResource Locator}" />
+	</Page.DataContext>
+
+	<Page.Resources>
+		<converters:RadioButtonCheckedConverter x:Key="RadioButtonCheckedConverter" />
+		<Style TargetType="ToggleButton">
+			<Setter Property="Padding" Value="15,5"/>
+			<Setter Property="IsThreeState" Value="False"/>
+		</Style>
+		<Style x:Key="SearchButton" TargetType="Button" BasedOn="{StaticResource RoundButtonTemplate}">
+			<Setter Property="Margin" Value="0,10,0,0"/>
+		</Style>
+	</Page.Resources>
+	
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="15">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+		<TextBox Grid.Row="0" Text="{Binding Path=Model.Text, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+				 HorizontalAlignment="Stretch" />
+		<StackPanel Grid.Row="1" Margin="0, 10" Orientation="Horizontal">
+			<ToggleButton Margin="0,0,5,0" Content="MEN" 
+						  IsChecked="{Binding Path=Model.IsMen, Mode=TwoWay, 
+									  Converter={StaticResource RadioButtonCheckedConverter}, 
+									  ConverterParameter={StaticResource True}}" />
+			<ToggleButton Margin="5,0,0,0" Content="WOMEN" 
+						  IsChecked="{Binding Path=Model.IsMen, Mode=TwoWay, 
+									  Converter={StaticResource RadioButtonCheckedConverter}, 
+									  ConverterParameter={StaticResource False}}" />
+		</StackPanel>
+
+		<ListBox Grid.Row="2" ItemsSource="{Binding Path=FilteredBrands, Mode=OneWay}" DisplayMemberPath="Name"
+				 Background="White" SelectedItem="{Binding Path=SelectedBrandModel, Mode=TwoWay}"/>
+
+		<ProgressRing IsActive="{Binding Path=IsBusy, Mode=OneWay}" Grid.Row="2" />
+		
+		<Button Grid.Row="3" Command="{Binding Path=LoadResult}" Content="Search" 
+				Style="{StaticResource SearchButton}"/>
+	</Grid>
+</Page>

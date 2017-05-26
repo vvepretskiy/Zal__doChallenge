@@ -1,0 +1,31 @@
+﻿<Application
+    x:Class="Zal__doChallenge.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:viewModels="using:Zal__doChallenge.ViewModels"
+    RequestedTheme="Light">
+	<Application.Resources>
+		<viewModels:ViewModelLocator x:Key="Locator" />
+		
+		<x:Boolean x:Key="True">true</x:Boolean>
+		<x:Boolean x:Key="False">false</x:Boolean>
+
+		<Style x:Key="RoundButtonTemplate" TargetType="Button">
+			<Setter Property="Background" Value="WhiteSmoke"/>
+			<Setter Property="BorderThickness" Value="1"/>
+			<Setter Property="Padding" Value="15,5"/>
+			<Setter Property="HorizontalAlignment" Value="Center"/>
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Button">
+						<Border CornerRadius="5" Background="{TemplateBinding Background}" 
+								BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Black"
+								Padding="{TemplateBinding Padding}">
+							<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+						</Border>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</Application.Resources>
+</Application>
